@@ -6,12 +6,9 @@ import {
 } from "react-native";
 
 import {Button} from "react-native-elements";
-
 import {InputGroup, Spacer} from "../components";
 import {StorageHelper} from "../helpers/StorageHelper";
-
 import GLOBAL from '../helpers/globals';
-
 
 class DevToolsScreen extends Component {
     constructor(props) {
@@ -48,7 +45,7 @@ class DevToolsScreen extends Component {
     saveApiUrl() {
         if (this.validateApi()) {
             let api = this.state.api;
-            api = api.replace(/\/$/,'')
+            api = api.replace(/\/$/, '');
             GLOBAL.skipped = false;
             GLOBAL.API_URI = api;
             StorageHelper.saveApiUrl(api);
@@ -62,11 +59,11 @@ class DevToolsScreen extends Component {
         this.setState({[`${field}`]: value});
     }
 
-    validateApi = () => {
+    validateApi() {
         let api = this.state.api;
         let re = /^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$/;
         return api && re.test(api);
-    }
+    };
 
     render() {
         return (
