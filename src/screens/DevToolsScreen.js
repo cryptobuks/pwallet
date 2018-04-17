@@ -47,9 +47,11 @@ class DevToolsScreen extends Component {
 
     saveApiUrl() {
         if (this.validateApi()) {
+            let api = this.state.api;
+            api = api.replace(/\/$/,'')
             GLOBAL.skipped = false;
-            GLOBAL.API_URI = this.state.api;
-            StorageHelper.saveApiUrl(this.state.api);
+            GLOBAL.API_URI = api;
+            StorageHelper.saveApiUrl(api);
             this._gotoLogin()
         } else {
             this.setState({validApi: false});
