@@ -5,6 +5,7 @@ import {
 } from './types';
 
 import {getProfile} from '../network/api';
+import GLOBAL from '../helpers/globals';
 
 export function fetchProfile() {
     return dispatch => {
@@ -16,7 +17,7 @@ export function fetchProfile() {
             )
             .catch(
                 (err) => {
-                    if (err.response && err.response.status === 401) {
+                    if (!GLOBAL.skipped && err.response && err.response.status === 401) {
                         return dispatch({type: 'Logout'});
                     }
                     dispatch({type: FETCH_USERINFO_FAILURE, payload: err});

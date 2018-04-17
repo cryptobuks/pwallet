@@ -89,6 +89,7 @@ class LoginScreen extends Component {
 
     skipLogin() {
         const {navigation} = this.props;
+        GLOBAL.skipped = true;
         navigation.dispatch({type: 'Login'})
     }
 

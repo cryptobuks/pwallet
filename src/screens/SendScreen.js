@@ -62,6 +62,7 @@ class SendScreen extends Component {
         }
 
         if (!searchedText) {
+            this.setState({recipient: '', submitted: false});
             return;
         }
         this.setState({recipient: searchedText, submitted: true});
