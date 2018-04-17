@@ -12,10 +12,12 @@ const initialState = {
 };
 
 const userInfo = (state = initialState, action) => {
+    console.log(action)
     switch (action.type) {
         case FETCH_USERINFO:
             return {...state, isLoading: true, hasError: false};
         case FETCH_USERINFO_SUCCESS:
+
             return {...state, isLoading: true, hasError: false, userInfo: action.payload};
         case FETCH_USERINFO_FAILURE:
             return {...state, isLoading: false, hasError: true};

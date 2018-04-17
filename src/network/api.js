@@ -18,7 +18,6 @@ export function createUser(params) {
 }
 
 export function createSession(params) {
-    console.log(ApiNewSession(), params)
     return httpClient.post(ApiNewSession(), params);
 }
 

@@ -32,14 +32,15 @@ class SendScreen extends Component {
             amount: ''
         };
 
-        this.updateForm = this.updateForm.bind(this);
+        this.updateAmount = this.updateAmount.bind(this);
         this.searchUsers = this.searchUsers.bind(this);
         this.selectUser = this.selectUser.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     };
 
-    updateForm(field, value) {
+    updateAmount(field, value) {
+        value = value.replace(/[a-zA-Z]/g, '');
         this.setState({[`${field}`]: value, submitted: true});
     }
 
@@ -123,7 +124,7 @@ class SendScreen extends Component {
     renderAdress = (user) => {
         return (
             <TouchableWithoutFeedback onPress={() => this.selectUser(user.name)}>
-                <View>
+                <View style={styles.searchItem}>
                     <Text>{user.name}, ({user.id})</Text>
                 </View>
             </TouchableWithoutFeedback>
@@ -158,7 +159,7 @@ class SendScreen extends Component {
             <View style={styles.container}>
                 <View>
                     <Text style={styles.headerText}>Your balance:</Text>
-                    <Text style={styles.balance}>{balance}</Text>
+                    <Text style={styles.balance}>{balance ? balance : 0}</Text>
                 </View>
                 <InputGroup
                     iconName="user-o"
@@ -175,9 +176,11 @@ class SendScreen extends Component {
                 <Spacer/>
 
                 <InputGroup
+                    keyboardType={"numeric"}
                     iconName="money"
                     placeholder="Amount"
-                    onChangeText={value => this.updateForm("amount", value)}
+                    value={this.state.amount}
+                    onChangeText={value => this.updateAmount("amount", value)}
                     iconError={!this.state.amount && this.state.submitted}
                 />
                 <View style={styles.loginBtn}>
@@ -213,6 +216,9 @@ const
             fontWeight: 'bold',
             marginBottom: 10,
             fontSize: 20,
+        },
+        searchItem: {
+            margin: 10,
         }
     });
 

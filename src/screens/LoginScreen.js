@@ -70,7 +70,6 @@ class LoginScreen extends Component {
         }).then(response => {
 
             this.setState({loading: false});
-            console.log(response)
             let result = response.data;
             StorageHelper.onSignIn(result.id_token);
             GLOBAL.token = result.id_token

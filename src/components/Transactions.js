@@ -23,7 +23,9 @@ export class Transactions extends Component {
         navigation.navigate(route, {story, pageY});
     };
 
-    _keyExtractor = item => (item.id ? item.id.toString() : item);
+    _keyExtractor = item => {
+        return item.id ? item.id.toString() : item
+    };
 
     handleLeftActionComplete = item => {
         this.setState({toggle: !this.state.toggle});
@@ -66,7 +68,7 @@ export class Transactions extends Component {
                         </Text>
                     </View>
                     <Text style={amountText}>
-                        {item.amount.toString().indexOf('-') !== -1 ? "" : "+"}{item.amount}
+                        {item.amount && item.amount.toString().indexOf('-') !== -1 ? "" : "+"} {item.amount}
                     </Text>
                 </View>
             </View>
@@ -163,9 +165,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        marginLeft: 5,
+        marginLeft: 10,
         marginTop: 5,
-        marginRight: 5
     },
 });
 

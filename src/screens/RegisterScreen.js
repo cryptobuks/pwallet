@@ -3,7 +3,8 @@ import {
     View,
     StyleSheet,
     StatusBar,
-    ToastAndroid
+    ToastAndroid,
+    ScrollView
 } from "react-native";
 
 import {Button} from "react-native-elements";
@@ -128,46 +129,49 @@ class RegisterScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar barStyle="light-content"/>
-                <View style={styles.formSection}>
-                    <View style={styles.formSectionInner}>
-                        <View>
-                            <InputGroup
-                                iconName="user-o"
-                                placeholder="Username"
-                                onChangeText={value => this.updateForm("username", value)}
-                                iconError={!this.state.username && this.state.submitted}
-                            />
-                            <Spacer/>
-                            <InputGroup
-                                iconName="envelope"
-                                keyboardType="email-address"
-                                placeholder="Email"
-                                onChangeText={value => this.updateForm("email", value)}
-                                iconError={!this.state.email && this.state.submitted}
-                            />
-                            <Spacer/>
-                            <InputGroup
-                                secureTextEntry
-                                iconName="lock"
-                                placeholder="Password"
-                                onChangeText={value => this.updateForm("password", value)}
-                                iconError={!this.state.password && this.state.submitted}
-                            />
-                            <Spacer/>
-                            <InputGroup
-                                secureTextEntry
-                                iconName="lock"
-                                placeholder="Password Confirm"
-                                onChangeText={value => this.updateForm("passwordConfirm", value)}
-                                iconError={!this.state.passwordConfirm && this.state.submitted}
-                            />
-                            <View style={styles.loginBtn}>
-                                {this.renderButton()}
+                <ScrollView style={[styles.scrollView, {width: '100%', height: '100%'}]}>
+
+                    <StatusBar barStyle="light-content"/>
+                    <View style={styles.formSection}>
+                        <View style={styles.formSectionInner}>
+                            <View>
+                                <InputGroup
+                                    iconName="user-o"
+                                    placeholder="Username"
+                                    onChangeText={value => this.updateForm("username", value)}
+                                    iconError={!this.state.username && this.state.submitted}
+                                />
+                                <Spacer/>
+                                <InputGroup
+                                    iconName="envelope"
+                                    keyboardType="email-address"
+                                    placeholder="Email"
+                                    onChangeText={value => this.updateForm("email", value)}
+                                    iconError={!this.state.email && this.state.submitted}
+                                />
+                                <Spacer/>
+                                <InputGroup
+                                    secureTextEntry
+                                    iconName="lock"
+                                    placeholder="Password"
+                                    onChangeText={value => this.updateForm("password", value)}
+                                    iconError={!this.state.password && this.state.submitted}
+                                />
+                                <Spacer/>
+                                <InputGroup
+                                    secureTextEntry
+                                    iconName="lock"
+                                    placeholder="Password Confirm"
+                                    onChangeText={value => this.updateForm("passwordConfirm", value)}
+                                    iconError={!this.state.passwordConfirm && this.state.submitted}
+                                />
+                                <View style={styles.loginBtn}>
+                                    {this.renderButton()}
+                                </View>
                             </View>
                         </View>
                     </View>
-                </View>
+                </ScrollView>
             </View>
         );
     }
