@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {
     View,
     Text,
-    StyleSheet,
+    StyleSheet, ToastAndroid,
 } from "react-native";
 
 import {Button} from "react-native-elements";
@@ -34,12 +34,20 @@ class DevToolsScreen extends Component {
         navigation.dispatch({type: 'Logout'})
     }
 
-    clearStorage() {
+    clearStorage = () => {
         StorageHelper.clear();
-    }
+        ToastAndroid.showWithGravityAndOffset(
+            'Cleared!',
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+            25,
+            50
+        );
+    };
 
     saveApiUrl() {
         if (this.validateApi()) {
+            GLOBAL.skipped = false;
             GLOBAL.API_URI = this.state.api;
             StorageHelper.saveApiUrl(this.state.api);
             this._gotoLogin()
