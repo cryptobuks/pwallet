@@ -1,0 +1,3 @@
+rootProject.name = 'albertincxPwallet'
+
+include ':app'
