@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
+
 import {
-    ToastAndroid
+    ToastAndroid,
+    View,
+    StatusBar
 } from 'react-native';
 import Transactions from '../components/Transactions';
 import {getTransactions} from "../network/api";
 import {showError} from "../utils/errorHandler";
-
 
 class TransactionsScreen extends Component {
     static navigationOptions = {};
@@ -52,23 +54,27 @@ class TransactionsScreen extends Component {
             this.setState({loading: false});
             showError(error)
         });
-    }
+    };
 
     handleTitlePress = () => {
 
-    }
+    };
+
     handleRefresh = () => {
         this._bootstrapAsync();
-    }
+    };
 
     render() {
         return (
-            <Transactions
-                data={this.state.transactions}
-                refreshing={this.state.refreshing}
-                handleRefresh={this.handleRefresh}
-                handleTitlePress={this.handleTitlePress}
-            />
+            <View>
+                <StatusBar barStyle="light-content"/>
+                <Transactions
+                    data={this.state.transactions}
+                    refreshing={this.state.refreshing}
+                    handleRefresh={this.handleRefresh}
+                    handleTitlePress={this.handleTitlePress}
+                />
+            </View>
         );
     }
 
@@ -77,5 +83,6 @@ class TransactionsScreen extends Component {
 TransactionsScreen.navigationOptions = {
     title: 'Transactions',
 };
+
 
 export default TransactionsScreen;

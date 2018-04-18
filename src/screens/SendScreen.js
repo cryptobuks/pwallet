@@ -15,18 +15,18 @@ import {InputGroup, Spacer, Spinner} from "../components";
 import {getUsers, createTransaction} from "../network/api";
 import {fetchProfile} from "../actions/user-info";
 import {showError} from "../utils/errorHandler";
+import {Page} from "../components/Page";
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 class SendScreen extends Component {
-
 
     constructor(props) {
         super(props);
 
         this.requestTimeoutHandler = null
         this.state = {
-            searchedAdresses: [],
+            foundUsers: [],
             recipient: '',
             submitted: false,
             amount: ''
@@ -51,10 +51,11 @@ class SendScreen extends Component {
     fetchProfile = () => {
         this.props.fetchProfile();
     };
+
     selectUser = (name) => {
         Keyboard.dismiss();
-        this.setState({searchedAdresses: [], recipient: name});
-    }
+        this.setState({foundUsers: [], recipient: name});
+    };
 
     searchUsers = (searchedText) => {
 
@@ -67,6 +68,7 @@ class SendScreen extends Component {
             return;
         }
         this.setState({recipient: searchedText, submitted: true});
+
         this.requestTimeoutHandler = setTimeout(() => {
             getUsers({filter: searchedText}).then((res) => {
                 const result = res.data;
@@ -77,10 +79,10 @@ class SendScreen extends Component {
                         return user.name.toLowerCase().indexOf(searchedText.toLowerCase()) > -1;
                     });
                 }
-                this.setState({searchedAdresses: found, recipient: searchedText});
+                this.setState({foundUsers: found, recipient: searchedText});
 
             }).catch((err) => {
-                this.setState({searchedAdresses: [], recipient: searchedText});
+                this.setState({foundUsers: [], recipient: searchedText});
             })
         }, 100);
 
@@ -122,7 +124,7 @@ class SendScreen extends Component {
         }
     }
 
-    renderAdress = (user) => {
+    renderItem = (user) => {
         return (
             <TouchableWithoutFeedback onPress={() => this.selectUser(user.name)}>
                 <View style={styles.searchItem}>
@@ -137,84 +139,81 @@ class SendScreen extends Component {
             return <Spinner size="large"/>;
         }
         return (
-            <Button onPress={this.handleSubmit} title="Send" />
+            <Button onPress={this.handleSubmit} title="Send"/>
         );
     };
 
     render() {
         const {userInfo} = this.props
-        let balance = 0
+        let balance = 0;
 
         if (userInfo.data) {
             balance = userInfo.data.user_info_token.balance
         }
         return (
-            <View style={styles.container}>
-                <View>
-                    <Text style={styles.headerText}>Your balance:</Text>
-                    <Text style={styles.balance}>{balance ? balance : 0}</Text>
-                </View>
-                <InputGroup
-                    iconName="user-o"
-                    placeholder="Type user name here"
-                    value={this.state.recipient}
-                    onChangeText={this.searchUsers}
-                    iconError={!this.state.recipient && this.state.submitted}
-                />
-                <ListView
-                    dataSource={ds.cloneWithRows(this.state.searchedAdresses)}
-                    renderRow={this.renderAdress}
-                    enableEmptySections={true}
-                    keyboardShouldPersistTaps={'always'}/>
-                <Spacer/>
 
-                <InputGroup
-                    keyboardType={"numeric"}
-                    iconName="money"
-                    placeholder="Amount"
-                    value={this.state.amount}
-                    onChangeText={value => this.updateAmount("amount", value)}
-                    iconError={!this.state.amount && this.state.submitted}
-                />
-                <Spacer/>
-                {this.renderButton()}
+            <View style={styles.container}>
+                <Page tabsHeight={100}>
+                    <View>
+                        <Text style={styles.headerText}>Your balance:</Text>
+                        <Text style={styles.balance}>{balance ? balance : 0}</Text>
+                    </View>
+                    <InputGroup
+                        iconName="user-o"
+                        placeholder="Type user name here"
+                        value={this.state.recipient}
+                        onChangeText={this.searchUsers}
+                        iconError={!this.state.recipient && this.state.submitted}
+                    />
+                    <ListView
+                        dataSource={ds.cloneWithRows(this.state.foundUsers)}
+                        renderRow={this.renderItem}
+                        enableEmptySections={true}
+                        keyboardShouldPersistTaps={'always'}/>
+                    <Spacer/>
+                    <InputGroup
+                        keyboardType={"numeric"}
+                        iconName="money"
+                        placeholder="Amount"
+                        value={this.state.amount}
+                        onChangeText={value => this.updateAmount("amount", value)}
+                        iconError={!this.state.amount && this.state.submitted}
+                    />
+                    <Spacer/>
+                    {this.renderButton()}
+                </Page>
             </View>
         );
-    }
-    ;
+    };
 }
 
-const
-    styles = StyleSheet.create({
-        container: {
-            backgroundColor: '#FFFFFF',
-            padding: 10
-        },
-        headerText: {
-            textAlign: 'center',
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#FFFFFF',
+        padding: 10
+    },
+    headerText: {
+        textAlign: 'center',
 
-        },
-        balance: {
-            textAlign: 'center',
-            fontWeight: 'bold',
-            marginBottom: 10,
-            fontSize: 20,
-        },
-        searchItem: {
-            margin: 10,
-        }
-    });
-
-const
-    mapStateToProps = (state) => {
-        const {userInfo} = state.userInfo;
-        return {
-            userInfo
-        }
+    },
+    balance: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginBottom: 10,
+        fontSize: 20,
+    },
+    searchItem: {
+        margin: 10,
     }
+});
 
-const
-    mapDispatchToProps = dispatch => ({
-        fetchProfile: () => dispatch(fetchProfile()),
-    })
+const mapStateToProps = (state) => {
+    const {userInfo} = state.userInfo;
+    return {userInfo}
+};
+
+const mapDispatchToProps = dispatch => ({
+    fetchProfile: () => dispatch(fetchProfile()),
+});
+
 export default connect(mapStateToProps, mapDispatchToProps)(SendScreen)

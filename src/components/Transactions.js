@@ -103,31 +103,29 @@ export class Transactions extends Component {
     };
 
     render() {
+
         const {saveStoryText} = styles;
         const {data, refreshing} = this.props;
         return (
-            <View>
-                <StatusBar barStyle="light-content"/>
-                <FlatList
-                    keyExtractor={this._keyExtractor}
-                    data={data}
-                    renderItem={this._renderItem}
-                    initialNumToRender={20}
-                    ItemSeparatorComponent={this._renderSeparator}
-                    ListFooterComponent={this._renderFooter}
-                    onEndReached={this.handleOnEndReached}
-                    onEndReachedThreshold={1}
-                    removeClippedSubviews={false}
-                    indicatorStyle={'white'}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={this.handleOnRefresh}
-                            tintColor={saveStoryText.color}
-                        />
-                    }
-                />
-            </View>
+            <FlatList
+                keyExtractor={this._keyExtractor}
+                data={data}
+                renderItem={this._renderItem}
+                initialNumToRender={20}
+                ItemSeparatorComponent={this._renderSeparator}
+                ListFooterComponent={this._renderFooter}
+                onEndReached={this.handleOnEndReached}
+                onEndReachedThreshold={1}
+                removeClippedSubviews={false}
+                indicatorStyle={'white'}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={this.handleOnRefresh}
+                        tintColor={saveStoryText.color}
+                    />
+                }
+            />
         );
     }
 }

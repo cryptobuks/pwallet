@@ -14,6 +14,7 @@ import {StorageHelper} from "../helpers/StorageHelper";
 import {createUser} from "../network/api";
 import GLOBAL from '../helpers/globals';
 import {showError} from "../utils/errorHandler";
+import {Page} from "../components/Page";
 
 class RegisterScreen extends Component {
     static navigationOptions = {
@@ -118,8 +119,7 @@ class RegisterScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView style={[styles.scrollView, {width: '100%', height: '100%'}]}>
-
+                <Page>
                     <StatusBar barStyle="light-content"/>
                     <View style={styles.formSection}>
                         <View style={styles.formSectionInner}>
@@ -159,7 +159,7 @@ class RegisterScreen extends Component {
                             </View>
                         </View>
                     </View>
-                </ScrollView>
+                </Page>
             </View>
         );
     }
