@@ -5,7 +5,7 @@ import {
     StyleSheet, ToastAndroid,
 } from "react-native";
 
-import {Button} from "react-native-elements";
+import {Button} from '../components/Button';
 import {InputGroup, Spacer} from "../components";
 import {StorageHelper} from "../helpers/StorageHelper";
 import GLOBAL from '../helpers/globals';
@@ -71,17 +71,10 @@ class DevToolsScreen extends Component {
                 <View style={styles.formSection}>
                     <View style={styles.formSectionInner}>
                         <View>
-                            <View style={styles.btnView}>
-                                <Button
-                                    onPress={this.clearStorage}
-                                    title="Clear Storage"
-                                    buttonStyle={styles.signUpBtn}
-                                    textStyle={{
-                                        fontSize: 13,
-                                        fontWeight: "bold"
-                                    }}
-                                />
-                            </View>
+                            <Button
+                                onPress={this.clearStorage}
+                                title="Clear Storage"
+                            />
                             <Spacer/>
                             <Text style={styles.labelText}>{' Api BASE URL (format: http://IP:PORT):'}</Text>
                             <InputGroup
@@ -91,18 +84,11 @@ class DevToolsScreen extends Component {
                                 onChangeText={value => this.updateForm("api", value)}
                                 iconError={!this.state.validApi}
                             />
-                            <View style={styles.btnView}>
-                                <Button
-                                    onPress={this.saveApiUrl}
-                                    title="Set Api url and restart App"
-                                    textStyle={{
-                                        fontSize: 13,
-                                        fontWeight: "bold"
-                                    }}
-                                    buttonStyle={styles.signUpBtn}
-                                />
-                            </View>
-
+                            <Spacer/>
+                            <Button
+                                onPress={this.saveApiUrl}
+                                title="Set Api url and restart App"
+                            />
                         </View>
                     </View>
                 </View>

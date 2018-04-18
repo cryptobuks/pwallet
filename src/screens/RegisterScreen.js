@@ -4,10 +4,9 @@ import {
     StyleSheet,
     StatusBar,
     ToastAndroid,
-    ScrollView
+    ScrollView,
+    Button
 } from "react-native";
-
-import {Button} from "react-native-elements";
 
 import {InputGroup, Spacer, Spinner} from "../components";
 import Colors from "../components/Colors";
@@ -21,7 +20,7 @@ class RegisterScreen extends Component {
         title: "Create new Parrot wallet",
         headerTintColor: Colors.white,
         headerStyle: {
-            backgroundColor: Colors.headerColor,
+            backgroundColor: Colors.parrot,
             borderBottomWidth: 0
         }
     };
@@ -108,21 +107,11 @@ class RegisterScreen extends Component {
     }
 
     renderButton() {
-
         if (this.state.loading) {
             return <Spinner size="large"/>;
         }
-
         return (
-            <Button
-                onPress={this.handleLoginSubmit}
-                title="Sign Up"
-                textStyle={{
-                    fontSize: 12,
-                    fontWeight: "bold"
-                }}
-                buttonStyle={styles.signUpBtn}
-            />
+            <Button onPress={this.handleLoginSubmit} title="Sign Up"/>
         );
     }
 
@@ -165,9 +154,8 @@ class RegisterScreen extends Component {
                                     onChangeText={value => this.updateForm("passwordConfirm", value)}
                                     iconError={!this.state.passwordConfirm && this.state.submitted}
                                 />
-                                <View style={styles.loginBtn}>
-                                    {this.renderButton()}
-                                </View>
+                                <Spacer/>
+                                {this.renderButton()}
                             </View>
                         </View>
                     </View>
@@ -188,15 +176,6 @@ const styles = StyleSheet.create({
     },
     formSectionInner: {
         padding: 20
-    },
-    signUpBtn: {
-        marginTop: 15,
-        height: 38,
-        borderRadius: 20,
-        backgroundColor: "#02b875"
-    },
-    loginBtn: {
-        paddingLeft: 35, paddingRight: 35
     }
 });
 

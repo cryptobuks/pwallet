@@ -5,11 +5,11 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     ListView,
-    View, ToastAndroid,
+    View,
+    ToastAndroid,
+    Button
 } from "react-native";
 import {connect} from 'react-redux';
-
-import {Button} from "react-native-elements";
 
 import {InputGroup, Spacer, Spinner} from "../components";
 import {getUsers, createTransaction} from "../network/api";
@@ -90,6 +90,7 @@ class SendScreen extends Component {
     handleSubmit() {
         let name = this.state.recipient;
         let amount = this.state.amount;
+        this.setState({submitted: true});
 
         let valid = false;
         if (name && amount) {
@@ -136,15 +137,7 @@ class SendScreen extends Component {
             return <Spinner size="large"/>;
         }
         return (
-            <Button
-                onPress={this.handleSubmit}
-                title="Send"
-                textStyle={{
-                    fontSize: 13,
-                    fontWeight: "bold"
-                }}
-                buttonStyle={styles.signUpBtn}
-            />
+            <Button onPress={this.handleSubmit} title="Send" />
         );
     };
 
@@ -183,9 +176,8 @@ class SendScreen extends Component {
                     onChangeText={value => this.updateAmount("amount", value)}
                     iconError={!this.state.amount && this.state.submitted}
                 />
-                <View style={styles.loginBtn}>
-                    {this.renderButton()}
-                </View>
+                <Spacer/>
+                {this.renderButton()}
             </View>
         );
     }
@@ -197,15 +189,6 @@ const
         container: {
             backgroundColor: '#FFFFFF',
             padding: 10
-        },
-        signUpBtn: {
-            marginTop: 15,
-            height: 38,
-            borderRadius: 20,
-            backgroundColor: "#02b875"
-        },
-        loginBtn: {
-            paddingLeft: 35, paddingRight: 35
         },
         headerText: {
             textAlign: 'center',

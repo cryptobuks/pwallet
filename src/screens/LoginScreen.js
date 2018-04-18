@@ -7,12 +7,11 @@ import {
     TouchableOpacity, ToastAndroid
 } from "react-native";
 
-import {Button} from "react-native-elements";
-
 import {
     InputGroup,
     Spacer,
-    Spinner
+    Spinner,
+    Button
 } from "../components";
 
 import Colors from "../components/Colors";
@@ -26,7 +25,7 @@ class LoginScreen extends Component {
         title: "Log in to Parrot Wallet",
         headerTintColor: Colors.white,
         headerStyle: {
-            backgroundColor: Colors.headerColor,
+            backgroundColor: Colors.parrot,
             elevation: null
         }
     };
@@ -115,15 +114,7 @@ class LoginScreen extends Component {
             return <Spinner size="large"/>;
         }
         return (
-            <Button
-                onPress={this.handleLoginSubmit}
-                title="LOG IN"
-                textStyle={{
-                    fontSize: 13,
-                    fontWeight: "bold"
-                }}
-                buttonStyle={styles.signUpBtn}
-            />
+            <Button onPress={this.handleLoginSubmit} title="Sing in" />
         );
     }
 
@@ -160,9 +151,8 @@ class LoginScreen extends Component {
                                 onChangeText={value => this.updateForm("password", value)}
                                 iconError={!this.state.password && this.state.submitted}
                             />
-                            <View style={styles.loginBtn}>
-                                {this.renderButton()}
-                            </View>
+                            <Spacer/>
+                            {this.renderButton()}
                         </View>
                     </View>
                 </View>
@@ -188,17 +178,8 @@ const styles = StyleSheet.create({
         padding: 20,
         paddingTop: 10
     },
-    signUpBtn: {
-        marginTop: 15,
-        height: 38,
-        borderRadius: 30,
-        backgroundColor: Colors.parrotBtn
-    },
     registerLink: {
         fontWeight: "bold",
-    },
-    loginBtn: {
-        paddingLeft: 35, paddingRight: 35
     },
     skipLink: {
         flex: 1,

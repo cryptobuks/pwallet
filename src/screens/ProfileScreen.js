@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    View,
+    View
 } from 'react-native';
-
-import {Button} from "react-native-elements";
+import {Button} from '../components/Button';
 import {StorageHelper} from "../helpers/StorageHelper";
-
 
 class ProfileScreen extends Component {
     logOut = () => {
@@ -24,11 +22,6 @@ class ProfileScreen extends Component {
                 <Button
                     onPress={this.logOut}
                     title="Logout"
-                    buttonStyle={styles.signUpBtn}
-                    textStyle={{
-                        fontSize: 13,
-                        fontWeight: "bold"
-                    }}
                 />
             </View>
         )
