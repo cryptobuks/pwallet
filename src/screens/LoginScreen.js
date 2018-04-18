@@ -123,11 +123,10 @@ class LoginScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <View style={{alignItems: 'center'}}>
+                    <Image style={styles.image} source={require('../../resources/screenshots/sticker.webp')}/>
+                </View>
                 <View style={styles.formSection}>
-                    <View style={{justifyContent: 'center',
-                        alignItems: 'center',}}>
-                        <Image style={styles.image} source={require('../../resources/screenshots/sticker.webp')}/>
-                    </View>
                     <View style={styles.formSectionInner}>
                         <View>
                             <View style={styles.loginLinks}>
@@ -139,7 +138,6 @@ class LoginScreen extends Component {
                                     <Text style={styles.skipLink}>{'skip '}</Text>
                                 </TouchableOpacity>
                             </View>
-
                             <InputGroup
                                 keyboardType="email-address"
                                 iconName="user-o"
@@ -198,7 +196,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     image: {
-        width: '80%',
+        height: '70%',
         resizeMode: 'contain',
     },
 });
