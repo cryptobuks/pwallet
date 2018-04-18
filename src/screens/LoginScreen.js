@@ -4,7 +4,9 @@ import {
     Text,
     View,
     StyleSheet,
-    TouchableOpacity, ToastAndroid
+    TouchableOpacity,
+    ToastAndroid,
+    Image
 } from "react-native";
 
 import {
@@ -122,6 +124,10 @@ class LoginScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.formSection}>
+                    <View style={{justifyContent: 'center',
+                        alignItems: 'center',}}>
+                        <Image style={styles.image} source={require('../../resources/screenshots/sticker.webp')}/>
+                    </View>
                     <View style={styles.formSectionInner}>
                         <View>
                             <View style={styles.loginLinks}>
@@ -190,7 +196,11 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         paddingBottom: 10,
-    }
+    },
+    image: {
+        width: '80%',
+        resizeMode: 'contain',
+    },
 });
 
 export default LoginScreen
